@@ -91,7 +91,7 @@ const sendMail = async (transporter, data) => {
 const start = async () => {
   try {
     await fastify.listen(
-      { port: 3002, host: "0.0.0.0" },
+      { port: process.env.PORT || 3000, host: "0.0.0.0" },
       function (err, address) {
         if (err) {
           fastify.log.error(err);
