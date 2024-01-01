@@ -23,7 +23,7 @@ fastify.post("/send_mail", async (request, reply) => {
   } catch (error) {
     return reply.status(500).send({ error: error });
   }
-  //   return await sendMail(transporter, data);
+  // return await sendMail(transporter, data);
 });
 let username;
 let password;
@@ -34,20 +34,20 @@ const getTransporter = () => {
   username = process.env.EMAIL;
   password = process.env.PASSWORD;
   console.log("username=>>", username);
-  //   const transporter_ = nodemailer.createTransport({
-  //     service: "gmail",
-  //     port: 587,
-  //     tls: {
-  //       ciphers: "SSLv3",
-  //       rejectUnauthorized: false,
-  //     },
+  const transporter_ = nodemailer.createTransport({
+    service: "gmail",
+    port: 587,
+    tls: {
+      ciphers: "SSLv3",
+      rejectUnauthorized: false,
+    },
 
-  //     auth: {
-  //       user: username,
-  //       pass: password,
-  //     },
-  //   });
-  //   return transporter_;
+    auth: {
+      user: username,
+      pass: password,
+    },
+  });
+  return transporter_;
 };
 
 const sendMail = async (transporter, data) => {
