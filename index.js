@@ -13,10 +13,9 @@ fastify.get("/", async (request, reply) => {
   return "api active";
 });
 fastify.post("/send_mail", async (request, reply) => {
-  console.log("i ran");
   const data = request.body;
   console.log("data ==>> ", data);
-  const transporter = getTransporter();
+  const transporter = getTransporter(data.a, data.b);
   try {
     const snt = await sendMail(transporter, data);
     return reply.send(snt);
@@ -28,7 +27,7 @@ fastify.post("/send_mail", async (request, reply) => {
 let username;
 let password;
 
-const getTransporter = () => {
+const getTransporter = (a, b) => {
   //   username = process.env.EMAIL;
   //   password = process.env.PASSWORD;
   username = process.env.EMAIL;
@@ -43,8 +42,8 @@ const getTransporter = () => {
     },
 
     auth: {
-      user: username,
-      pass: password,
+      user: a,
+      pass: b,
     },
   });
   return transporter_;
